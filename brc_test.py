@@ -76,4 +76,4 @@ def loop():
     motor_control(0, 0, 1, 0) # LEFT
     delay(300)
 
-run (setup, loop)
+run(setup, loop)
