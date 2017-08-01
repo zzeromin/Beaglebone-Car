@@ -24,6 +24,7 @@ def motor_control(i1, i2, i3, i4):
 
 
 def pulseIn(gpio_pin, value, timeout=400):
+    """https://community.particle.io/t/pulsein-function-for-hc-sr04-sensor/27028/2"""
     now = micros()
     while digitalRead(gpio_pin) == HIGH:
         if micros() - now > 38000:
@@ -68,18 +69,18 @@ def loop():
     else:
         print distance, "cm", duration, "us"
 
-    motor_control(0, 0, 0, 0) # STOP
-    delay(500)
-    motor_control(1, 0, 1, 0) # FORWARD
-    delay(300)
-    motor_control(0, 1, 0, 1) # BACK
-    delay(300)
-    motor_control(1, 0, 0, 0) # RIGHT
-    delay(300)
-    motor_control(0, 0, 1, 0) # LEFT
-    delay(300)    
+    # delay(500)
+    motor_control(1, 0, 1, 0)  # FORWARD
+    # delay(300)
+    # motor_control(0, 1, 0, 1)  # BACK
+    # delay(300)
+    # motor_control(1, 0, 0, 0)  # RIGHT
+    # delay(300)
+    # motor_control(0, 0, 1, 0)  # LEFT
+    # delay(300)
+    if distance < 10:
+        motor_control(0, 0, 0, 0)  # STOP
 
-    delayMicroseconds(1000000)
+    delayMicroseconds(100)
 
 run(setup, loop)
-
