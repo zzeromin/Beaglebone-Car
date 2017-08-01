@@ -49,8 +49,8 @@ def setup():
     pinMode(IN4, OUTPUT)
     pinMode(TrigPin, OUTPUT)
     pinMode(EchoPin, INPUT)
-
-
+    
+    
 def loop():
     duration = 0
     distance = 0
