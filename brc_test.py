@@ -23,14 +23,6 @@ def motor_control(i1, i2, i3, i4):
     digitalWrite(IN4, i4)
 
 
-def setup():
-    pinMode(IN1, OUTPUT)
-    pinMode(IN2, OUTPUT)
-    pinMode(IN3, OUTPUT)
-    pinMode(IN4, OUTPUT)
-    pinMode(TrigPin, OUTPUT)
-    pinMode(EchoPin, INPUT)
-    
 """
 def pulseIn(gpio_pin, value, timeout=400):
     """ pulseIn by Bence Magyar. """
@@ -51,6 +43,15 @@ def pulseIn(gpio_pin, value, timeout=400):
         delayMicroseconds(30)
         return micros() - start
 """
+
+def setup():
+    pinMode(IN1, OUTPUT)
+    pinMode(IN2, OUTPUT)
+    pinMode(IN3, OUTPUT)
+    pinMode(IN4, OUTPUT)
+    pinMode(TrigPin, OUTPUT)
+    pinMode(EchoPin, INPUT)
+    
 
 def loop():
     duration = 0
