@@ -24,22 +24,22 @@ def motor_control(i1, i2, i3, i4):
 
 
 def pulseIn(gpio_pin, value, timeout=400):
-    """ pulseIn by Bence Magyar. """
-    """ timeout default value represents 400 cm sonar distance signal length. """
-    """ Returns length of chosen signal in microseconds. """
-#    assert (gpio_pin in bbio), "*Invalid GPIO pin: '%s'" % gpio_pin
-    assert (value in [HIGH, LOW]), "*Invalid value parameter: '%d'" % value
-    endSig = value
-    startSig = LOW if value==HIGH else HIGH
-    start = micros()
-    while digitalRead(gpio_pin) == startSig and (micros()-start) < timeout:
-        delayMicroseconds(30)
-        if micros()-start > timeout:
-            return timeout
-    start = micros()
-    while digitalRead(gpio_pin) == endSig and (micros()-start) < timeout:
-        delayMicroseconds(30)
-        return micros() - start
+    now = micros()
+    while digitalRead(gpio_pin) == HIGH:
+        if micros() - now > 38000:
+            return 0
+
+    now = micros()
+    while digitalRead(gpio_pin) == LOW:
+        if micros() - now > 38000:
+            return 0
+
+    now = micros()
+    while digitalRead(gpio_pin) == HIGH:
+        if micros() - now > 38000:
+            return 0
+
+    return micros() - now
 
 
 def setup():
@@ -49,21 +49,24 @@ def setup():
     pinMode(IN4, OUTPUT)
     pinMode(TrigPin, OUTPUT)
     pinMode(EchoPin, INPUT)
-    
+
 
 def loop():
+    print "loop"
     duration = 0
     distance = 0
     digitalWrite(TrigPin, LOW)
-    delayMicroseconds(3);
+    delayMicroseconds(3)
     digitalWrite(TrigPin, HIGH)
     delayMicroseconds(10)
     digitalWrite(TrigPin, LOW)
     duration = pulseIn(EchoPin, HIGH)
-#    distance =  duration / 2 / 29
+    distance = duration / 58
 
-#    print(distance)
-#    delay(500)
+    if distance >= 200 or distance <= 4:
+        print "Out of range"
+    else:
+        print distance, "cm", duration, "us"
 
     motor_control(0, 0, 0, 0) # STOP
     delay(500)
@@ -74,7 +77,9 @@ def loop():
     motor_control(1, 0, 0, 0) # RIGHT
     delay(300)
     motor_control(0, 0, 1, 0) # LEFT
-    delay(300)
-    
-    
+    delay(300)    
+
+    delayMicroseconds(1000000)
+
 run(setup, loop)
+
