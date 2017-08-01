@@ -53,7 +53,6 @@ def setup():
 
 
 def loop():
-    print "loop"
     duration = 0
     distance = 0
     digitalWrite(TrigPin, LOW)
@@ -79,8 +78,9 @@ def loop():
     # motor_control(0, 0, 1, 0)  # LEFT
     # delay(300)
     if distance < 10:
+        print "stop", distance, "cm"
         motor_control(0, 0, 0, 0)  # STOP
 
-    delayMicroseconds(100)
+    delayMicroseconds(100000)
 
 run(setup, loop)
