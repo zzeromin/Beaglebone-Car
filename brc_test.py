@@ -23,14 +23,12 @@ def motor_control(i1, i2, i3, i4):
     digitalWrite(IN4, i4)
 
 
-"""
 def pulseIn(gpio_pin, value, timeout=400):
     """ pulseIn by Bence Magyar. """
-    """ timeout default value represents 400 cm sonar distance signal length. $
+    """ timeout default value represents 400 cm sonar distance signal length. """
     """ Returns length of chosen signal in microseconds. """
 #    assert (gpio_pin in bbio), "*Invalid GPIO pin: '%s'" % gpio_pin
-#    assert (value in [HIGH, LOW]), "*Invalid value parameter: '%d'" % value
-""""
+    assert (value in [HIGH, LOW]), "*Invalid value parameter: '%d'" % value
     endSig = value
     startSig = LOW if value==HIGH else HIGH
     start = micros()
@@ -42,7 +40,7 @@ def pulseIn(gpio_pin, value, timeout=400):
     while digitalRead(gpio_pin) == endSig and (micros()-start) < timeout:
         delayMicroseconds(30)
         return micros() - start
-"""
+
 
 def setup():
     pinMode(IN1, OUTPUT)
